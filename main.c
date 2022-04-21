@@ -14,8 +14,8 @@
 
 void	process1(char **argv, char **env, int fd[2])
 {
+	int x;
 	int		pid1 = fork();
-	char	**cmds;
 	if (pid1 < 0)
 	{
 		perror("ocio");
@@ -23,18 +23,20 @@ void	process1(char **argv, char **env, int fd[2])
 	}
 	else if (pid1 == 0)
 	{
+		x = open("pico.txt", O_RDONLY);
+		dup2(x, 0);
 		dup2(fd[1], 1);
 		close(fd[0]);
 		close(fd[1]);
-		char	*cmds[] = {"echo", "loooool\nlonzolol", 0};
+		char	*cmds[] = {"echo", "lon\nmoo", 0};
 		execve("/bin/echo", cmds, env);
 	}
 }
 
 void	process2(char **argv, char **env, int fd[2])
 {
+	int x;
 	int		pid2 = fork();
-	char	**cmds;// = {"grep", "lon", 0};
 	if (pid2 < 0)
 	{
 		perror("ocio");
@@ -42,10 +44,12 @@ void	process2(char **argv, char **env, int fd[2])
 	}
 	else if (pid2 == 0)
 	{
+		x = open("ui.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		dup2(x, 1);
 		dup2(fd[0], 0);
 		close(fd[0]);
 		close(fd[1]);
-		//char* cmds[] = {"grep", "lon", 0};
+		char* cmds[] = {"grep", "lon", 0};
 		execve("/usr/bin/grep", cmds, env);
 	}
 }
