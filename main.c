@@ -12,57 +12,74 @@
 
 #include "pipex.h"
 
-void	process1(char **argv, char **env, int fd[2])
+void	process1(char **argv, char **env, int fd[2], int y)
 {
-	int x;
-	int		pid1 = fork();
-	if (pid1 < 0)
+	char *cmd;
+	char **cmds;
+	int		pid = fork();
+	
+	cmd = NULL;
+	cmds = NULL;
+	if (pid < 0)
 	{
 		perror("ocio");
 		exit(1);
 	}
-	else if (pid1 == 0)
+	else if (pid == 0)
 	{
-		x = open("pico.txt", O_RDONLY);
-		dup2(x, 0);
+		dup2(y, 0);
 		dup2(fd[1], 1);
 		close(fd[0]);
-		close(fd[1]);
-		char	*cmds[] = {"echo", "lon\nmoo", 0};
-		execve("/bin/echo", cmds, env);
+		cmds = ft_split(argv[2], ' ');
+		cmd = ft_strjoin("/usr/bin/", cmds[0]);
+		execve(cmd, cmds, env);
 	}
 }
 
-void	process2(char **argv, char **env, int fd[2])
+void	process2(char **argv, char **env, int fd[2], int x)
 {
-	int x;
-	int		pid2 = fork();
-	if (pid2 < 0)
+	
+	char *cmd;
+	char	**cmds;
+	int		pid = fork();
+
+	cmd = NULL;
+	cmds = NULL;
+	
+	
+	if (pid < 0)
 	{
 		perror("ocio");
 		exit(1);
 	}
-	else if (pid2 == 0)
+	else if (pid == 0)
 	{
-		x = open("ui.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
 		dup2(x, 1);
 		dup2(fd[0], 0);
-		close(fd[0]);
 		close(fd[1]);
-		char* cmds[] = {"grep", "lon", 0};
-		execve("/usr/bin/grep", cmds, env);
+		cmds = ft_split(argv[3], ' ');
+		cmd = ft_strjoin("/usr/bin/", cmds[0]);
+		execve(cmd, cmds, env);
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	int	fd[2];
-	/*if (argc != 5)
-		return (0);*/
+	int x;
+	int y;
+
+	x = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC | 0644);
+	y = open(argv[1], O_RDONLY);
+	if (x < 0 || y < 0)
+		return (0);
+	if (argc != 5)
+		return (0);
 	if (pipe(fd) == -1)
 		return (0);
-	process1(argv, env, fd);
-	process2(argv, env, fd);
+	process1(argv, env, fd, y);
+	process2(argv, env, fd, x);
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(-1, NULL, 0);

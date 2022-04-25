@@ -6,7 +6,7 @@
 /*   By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 13:32:57 by fstupar           #+#    #+#             */
-/*   Updated: 2022/04/19 13:33:33 by fstupar          ###   ########.fr       */
+/*   Updated: 2022/04/25 12:15:15 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s, char c);
 
 #endif
