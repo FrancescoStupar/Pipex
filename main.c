@@ -27,8 +27,10 @@ void	process1(char **argv, char **env, int fd[2], int y)
 	}
 	else if (pid == 0)
 	{
-		dup2(y, 0);
-		dup2(fd[1], 1);
+		if (dup2(y, 0) == -1)
+			perror("ERROwsR");
+		if(dup2(fd[1], 1) == -1)
+			perror("ERROswR");
 		close(fd[0]);
 		cmds = ft_split(argv[2], ' ');
 		cmd = ft_strjoin("/usr/bin/", cmds[0]);
@@ -55,8 +57,10 @@ void	process2(char **argv, char **env, int fd[2], int x)
 	else if (pid == 0)
 	{
 
-		dup2(x, 1);
-		dup2(fd[0], 0);
+		if (dup2(x, 1) == -1)
+			perror("ERROswswR");
+		if (dup2(fd[0], 0) == -1)
+			perror("ERROswR");	
 		close(fd[1]);
 		cmds = ft_split(argv[3], ' ');
 		cmd = ft_strjoin("/usr/bin/", cmds[0]);
@@ -70,7 +74,7 @@ int	main(int argc, char **argv, char **env)
 	int x;
 	int y;
 
-	x = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC | 0644);
+	x = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	y = open(argv[1], O_RDONLY);
 	if (x < 0 || y < 0)
 		return (0);
