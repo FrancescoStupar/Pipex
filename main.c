@@ -14,12 +14,11 @@
 
 void	process1(char **argv, char **env, int fd[2], int y)
 {
-	char *cmd;
-	char **cmds;
-	int		pid = fork();
-	
-	cmd = NULL;
-	cmds = NULL;
+	char	*cmd;
+	char	**cmds;
+	int		pid;
+
+	pid = fork();
 	if (pid < 0)
 	{
 		perror("ocio");
@@ -27,10 +26,8 @@ void	process1(char **argv, char **env, int fd[2], int y)
 	}
 	else if (pid == 0)
 	{
-		if (dup2(y, 0) == -1)
-			perror("ERROwsR");
-		if(dup2(fd[1], 1) == -1)
-			perror("ERROswR");
+		dup2(y, 0);
+		dup2(fd[1], 1);
 		close(fd[0]);
 		cmds = ft_split(argv[2], ' ');
 		cmd = ft_strjoin("/usr/bin/", cmds[0]);
@@ -40,15 +37,11 @@ void	process1(char **argv, char **env, int fd[2], int y)
 
 void	process2(char **argv, char **env, int fd[2], int x)
 {
-	
-	char *cmd;
+	char	*cmd;
 	char	**cmds;
-	int		pid = fork();
+	int		pid;
 
-	cmd = NULL;
-	cmds = NULL;
-	
-	
+	pid = fork();
 	if (pid < 0)
 	{
 		perror("ocio");
@@ -56,11 +49,8 @@ void	process2(char **argv, char **env, int fd[2], int x)
 	}
 	else if (pid == 0)
 	{
-
-		if (dup2(x, 1) == -1)
-			perror("ERROswswR");
-		if (dup2(fd[0], 0) == -1)
-			perror("ERROswR");	
+		dup2(x, 1);
+		dup2(fd[0], 0);
 		close(fd[1]);
 		cmds = ft_split(argv[3], ' ');
 		cmd = ft_strjoin("/usr/bin/", cmds[0]);
@@ -71,8 +61,8 @@ void	process2(char **argv, char **env, int fd[2], int x)
 int	main(int argc, char **argv, char **env)
 {
 	int	fd[2];
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	y = open(argv[1], O_RDONLY);
@@ -88,4 +78,5 @@ int	main(int argc, char **argv, char **env)
 	close(fd[1]);
 	waitpid(-1, NULL, 0);
 	waitpid(-1, NULL, 0);
+	return (0);
 }

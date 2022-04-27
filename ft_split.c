@@ -6,7 +6,7 @@
 /*   By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 12:13:54 by fstupar           #+#    #+#             */
-/*   Updated: 2022/04/25 14:03:03 by fstupar          ###   ########.fr       */
+/*   Updated: 2022/04/25 18:37:33 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	**ft_split(char const *s, char c)
 	t_point	a;
 	char	**array;
 	int		k;
+
 	k = len_double(s, c);
 	array = (char **)malloc(sizeof(char *) * k);
 	if (array == NULL)

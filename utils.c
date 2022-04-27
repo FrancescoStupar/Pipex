@@ -6,11 +6,21 @@
 /*   By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 12:13:58 by fstupar           #+#    #+#             */
-/*   Updated: 2022/04/25 12:14:37 by fstupar          ###   ########.fr       */
+/*   Updated: 2022/04/27 11:55:05 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+size_t	ft_strlen(const char *s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -31,14 +41,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new[i + k] = s2[k];
 	new[i + k] = '\0';
 	return (new);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
