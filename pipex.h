@@ -6,7 +6,7 @@
 /*   By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 13:32:57 by fstupar           #+#    #+#             */
-/*   Updated: 2022/04/27 11:55:11 by fstupar          ###   ########.fr       */
+/*   Updated: 2022/04/27 13:02:44 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+# include "libft/libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
