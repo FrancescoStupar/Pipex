@@ -6,7 +6,7 @@
 #    By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/25 04:32:29 by lraffin           #+#    #+#              #
-#    Updated: 2022/04/27 12:40:16 by fstupar          ###   ########.fr        #
+#    Updated: 2022/04/28 10:44:08 by fstupar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ HEADER	= pipex.h
 
 SRCS 	= main.c\
 		  ft_split.c\
-		  utils.c
+		  utils.c\
+		  get_next_line.c
 		  
 OBJS	= $(SRCS:c=o)
 			

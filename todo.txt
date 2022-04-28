@@ -1,1 +1,4 @@
-1. use access() to check for validity of command.
+1. usare access in get_path o get_path
+2. sistema files
+3. check error management
+4. norminette

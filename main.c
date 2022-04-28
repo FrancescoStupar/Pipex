@@ -18,18 +18,18 @@ void	puterror(char *str)
 	exit(-1);
 }
 
-char	*path(char *cmd, char **env)
-{
-	int		execstat;
-	int gianni = open("demodei.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	dup2(gianni, 1);
-	char *occhio = ft_strjoin("which ", cmd);
-	char **olho = ft_split(occhio, ' ');
-	execstat = execve("which", olho, env);
-	if (execstat == -1)
-		puterror("dedneqknd");
-	char *result = get_next_line(gianni);
-	return ("/bin/cat");
+// char	*path(char *cmd, char **env)
+// {
+// 	int		execstat;
+// 	int gianni = open("demodei.txt", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+// 	dup2(gianni, 1);
+// 	char *occhio = ft_strjoin("which ", cmd);
+// 	char **olho = ft_split(occhio, ' ');
+// 	execstat = execve("which", olho, env);
+// 	if (execstat == -1)
+// 		puterror("dedneqknd");
+// 	char *result = get_next_line(gianni);
+// 	return ("/bin/cat");
 }
 
 void	process1(char **argv, char **env, int fd[2], int x)
