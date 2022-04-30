@@ -6,7 +6,7 @@
 /*   By: fstupar <fstupar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 13:32:29 by fstupar           #+#    #+#             */
-/*   Updated: 2022/04/19 14:50:36 by fstupar          ###   ########.fr       */
+/*   Updated: 2022/04/30 19:17:25 by fstupar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ int	main(int argc, char **argv, char **env)
 	int	fd[2];
 	int	x;
 	int	y;
-
+	
+	if (argc != 5)
+		return (0);
 	x = open(argv[1], O_RDONLY);
 	y = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (x < 0 || y < 0)
@@ -106,9 +108,7 @@ int	main(int argc, char **argv, char **env)
 		write(1, argv[1], ft_strlen(argv[1]));
 		write(1, "\n", 1);
 		return (0);
-	}	
-	if (argc != 5)
-		return (0);
+	}
 	if (pipe(fd) == -1)
 		puterror("Pipe Error ");
 	process1(argv, env, fd, x);
@@ -116,5 +116,7 @@ int	main(int argc, char **argv, char **env)
 	process2(argv, env, fd, y);
 	close(fd[0]);
 	close(fd[1]);
+	close(y);
+	close(x);
 	return (0);
 }
